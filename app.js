@@ -1,7 +1,7 @@
 // index.js
 
 require('dotenv').config();
-require('./src/config/redisClient.js');
+//require('./src/config/redisClient.js');
 require('./src/config/pocketbaseClient.js');
 
 const { initBrowser } = require('./src/services/cedulaService.js'); 
@@ -9,7 +9,7 @@ const { initBrowser } = require('./src/services/cedulaService.js');
 const express = require('express');
 
 // --- 1. Importa los nuevos archivos de rutas ---
-const instanceRoutes = require('./src/api/routes/instance.routes.js');
+///const instanceRoutes = require('./src/api/routes/instance.routes.js');
 const logRoutes = require('./src/api/routes/log.routes.js');
 const aiRoutes = require('./src/api/routes/ai.routes.js');
 const sessionRoutes = require('./src/api/routes/session.routes.js')
@@ -44,7 +44,7 @@ app.use('/api/session', sessionRoutes); //para manejar sesiones de usuarios
 app.use('/api/config', configRoutes); //para optener configuraciones dinámicas por ahora solo sms de bienvenida
 app.use('/api/cedula', cedulaRoutes); //para validar y extraer datos de cédulas
 app.use('/api/whatsapp', whatsappRoutes) // para controlar envio de mensajes whatsapp
-//app.use('/api/loan', loanRoutes);// -----------quiero eliminar temporalmente para que no cree instancias nuevas
+app.use('/api/loan', loanRoutes);// -----------quiero eliminar temporalmente para que no cree instancias nuevas
 //app.use('/api/invoices', invoiceRoutes);// -----------quiero eliminar temporalmente para que no cree instancias nuevas
 
 

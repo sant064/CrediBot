@@ -59,7 +59,7 @@ async function processAndSendAccumulatedMessages(sender) {
 // --- Main Controller Function for the Webhook ---
 const handleWebhook = (req, res) => {
     const webhookBody = req.body;
-    // console.log('[Accumulator] 📩 Webhook received:', JSON.stringify(webhookBody, null, 2)); // Uncomment for deep debug
+    //console.log('[Accumulator] 📩 Webhook received:', JSON.stringify(webhookBody, null, 2)); // Uncomment for deep debug
 
     // --- Extract Key Data (Adapt paths based on actual Evolution API webhook structure) ---
     const sender = webhookBody?.data?.key?.remoteJid || webhookBody?.sender; // Check both potential locations
