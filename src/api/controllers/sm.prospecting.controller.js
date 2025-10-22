@@ -1,7 +1,7 @@
 // controllers/prospecting.controller.js
 
 // Importamos el servicio que tiene la lógica de búsqueda
-const prospectingService = require('../services/prospectingService');
+const prospectingService = require('../../services/sm.prospectingService');
 
 const searchBusiness = async (req, res) => {
     // 1. Extraemos el dato del cuerpo (body) de la petición

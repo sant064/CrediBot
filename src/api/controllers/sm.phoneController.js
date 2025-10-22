@@ -1,6 +1,6 @@
 // /controllers/phoneController.js
 
-const phoneRepository = require('../repositories/sm.phoneRepository'); // Adjust path as needed
+const phoneRepository = require('../../repositories/sm.phoneRepository'); // Adjust path as needed
 
 /**
  * GET Endpoint: Retrieves a record by phone number.

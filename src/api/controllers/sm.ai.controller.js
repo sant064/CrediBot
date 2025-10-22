@@ -1,6 +1,6 @@
 // /controllers/ai.controller.js
-const aiService = require('../services/aiExtraer');
-const solicitudRepository = require('../repositories/solicitud.repository');
+const aiService = require('../../services/sm.aiExtraer');
+const solicitudRepository = require('../../repositories/sm.solicitud.repository');
 
 /**
  * Maneja la petición HTTP para extraer datos de un mensaje.

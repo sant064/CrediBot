@@ -1,7 +1,7 @@
 // /routes/ai.routes.js
 const express = require('express');
 const router = express.Router();
-const aiController = require('../controllers/ai.controller');
+const aiController = require('../controllers/sm.ai.controller');
 
 // Leemos la ruta desde el archivo .env o usamos /extract por defecto
 const extractRoute = process.env.EXTRACT_API_ROUTE || '/';

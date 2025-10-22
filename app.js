@@ -18,6 +18,10 @@ const cedulaRoutes = require('./src/api/routes/cedula.routes.js');
 const whatsappRoutes = require('./src/api/routes/whatsapp.routes.js')
 const loanRoutes = require('./src/api/routes/loan.routes.js')
 //const invoiceRoutes = require('./routes/invoice.routes.js');
+// RUTAS DE SM
+const sm_prospectingRoutes = require('./src/api/routes/sm.prospecting.routes.js');
+const sm_phoneRoutes = require('./src/api/routes/sm.phone.routes.js');
+const sm_aiRoutes = require('./src/api/routes/sm.ai.routes.js');
 
 
 const app = express();
@@ -40,6 +44,13 @@ app.use('/api/cedula', cedulaRoutes); //para validar y extraer datos de cédulas
 app.use('/api/whatsapp', whatsappRoutes) // para controlar envio de mensajes whatsapp
 //app.use('/api/loan', loanRoutes);// -----------quiero eliminar temporalmente para que no cree instancias nuevas
 //app.use('/api/invoices', invoiceRoutes);// -----------quiero eliminar temporalmente para que no cree instancias nuevas
+
+
+
+// RUTAS DE SM
+app.use('sm/extraer', sm_aiRoutes);
+app.use('sm/empresa', sm_prospectingRoutes);
+app.use('sm/telefono', sm_phoneRoutes);
 
 
 // --- 3. Inicia el Servidor ---
