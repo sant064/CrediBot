@@ -1,0 +1,2870 @@
+{
+  "name": "credibot",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "538fcecb-5032-42e0-aadf-3557686f5b00",
+              "name": "instanceId",
+              "value": "={{ $json.body.instanceId }}",
+              "type": "string"
+            },
+            {
+              "id": "1b007e5b-fe16-4658-8f05-6c4ca77ec79d",
+              "name": "sender",
+              "value": "={{ $json.body.sender }}",
+              "type": "string"
+            },
+            {
+              "id": "ca81a2d8-55b4-40e7-a526-0e81b5e8187e",
+              "name": "userMessage",
+              "value": "={{ $json.body.userMessage }}",
+              "type": "string"
+            },
+            {
+              "id": "ca87aaa9-ff22-4aa4-a1b0-ddc41e83e1a0",
+              "name": "url_server",
+              "value": "={{ $json.body.url_server }}",
+              "type": "string"
+            },
+            {
+              "id": "06367215-f293-468b-a41a-830258441804",
+              "name": "apikey",
+              "value": "={{ $json.body.apikey }}",
+              "type": "string"
+            },
+            {
+              "id": "43bf946a-cb38-43f9-8cf7-d137277f7fcd",
+              "name": "messageType",
+              "value": "={{ $json.body.messageType }}",
+              "type": "string"
+            },
+            {
+              "id": "12b40af2-8dbe-440b-bece-9fa787bf35fc",
+              "name": "fromMe",
+              "value": "={{ $json.body.fromMe }}",
+              "type": "string"
+            },
+            {
+              "id": "deb6e6ec-f47f-4d19-ae20-391af277610b",
+              "name": "=nodeServer",
+              "value": "={{ $json.body.nodeServer }}",
+              "type": "string"
+            },
+            {
+              "id": "a1059621-9ae8-43b0-bfe5-78128c69d777",
+              "name": "fuente",
+              "value": "={{ $json.body.sender.split('@')[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "e264f58f-5582-4e77-a21d-67d573da34db",
+              "name": "clase",
+              "value": "={{ $json.body.clase }}",
+              "type": "string"
+            },
+            {
+              "id": "d4a63b70-1d99-4391-ae54-fae085e197dd",
+              "name": "status",
+              "value": "={{ $json.body.status }}",
+              "type": "string"
+            },
+            {
+              "id": "a5ae1a53-370f-45d3-b918-b20a60a74076",
+              "name": "grupo-unidos",
+              "value": "=120363199281487443@g.us",
+              "type": "string"
+            },
+            {
+              "id": "e2edefca-38ef-4f73-9d41-9329e6b88d94",
+              "name": "grupo-analistas",
+              "value": "=120363401736705101@g.us",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3456,
+        1184
+      ],
+      "id": "d9b5de6e-7998-43d9-a427-2913819226fb",
+      "name": "Extract Initial Vars"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/whatsapp-main-router-xyz",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -3712,
+        1168
+      ],
+      "id": "bf86407b-3544-41ba-908b-0c94bbdf89b4",
+      "name": "main",
+      "webhookId": "4800ea12-be69-45c4-937d-d93295d0545b"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cb8e43d1-3367-4903-a7f9-1842d815432e",
+              "leftValue": "={{ $json.clase }}",
+              "rightValue": "s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3232,
+        1200
+      ],
+      "id": "e3090a58-4d6c-42df-a385-ad4bac98902f",
+      "name": "es individual"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3f3ea4d7-f9c3-41f5-9ce1-0cbdae725d52",
+              "leftValue": "={{ $json.tipo }}",
+              "rightValue": "conversation",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "ab1fe575-9f32-4dcc-83f7-4441c9a43dff",
+              "leftValue": "={{ $json.message }}",
+              "rightValue": "null",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "610a4890-8649-4f87-8d85-42fdf69d26b5",
+              "leftValue": "={{ $json.fromMe }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3664,
+        1456
+      ],
+      "id": "818ce993-fd3d-4e5e-9923-e4d8f3cd71ab",
+      "name": "es conversacion y  no propio"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7d378c9f-df9c-4378-b015-f9707a44c357",
+              "leftValue": "={{ $('consultar seccion').item.json.message_count }}",
+              "rightValue": 4,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2208,
+        1728
+      ],
+      "id": "cb9596f7-1f68-411f-876b-b108737cfdad",
+      "name": "¿Menos de 3 mensajes?"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2256,
+        1984
+      ],
+      "id": "ef517556-c487-480b-b2ff-2ba3dc05fca4",
+      "name": "no errutar"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ab6e09a9-e6d2-41e8-8fb8-2da203dbc9cc",
+              "leftValue": "={{ $json.validacion }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2992,
+        1456
+      ],
+      "id": "6e68e3c9-870b-4fb8-968c-0ad513820662",
+      "name": "hay cedula"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1936,
+        1968
+      ],
+      "id": "d10c766f-d878-4c04-ad3f-35bc72108a56",
+      "name": "respuestas estan en bbdd config"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.nodeServer }}/api/log/chat",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ sender: $json.sender, message:$json.userMessage,fromMe:$json.fromMe,status:$json.status,instanceId:$json.instanceId,tipo:$json.messageType,fuente:$json.fuente,clase:$json.clase }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3008,
+        1168
+      ],
+      "id": "cad9496b-e1ea-4ecb-b524-81b4989deb76",
+      "name": "guardar Chat"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/config/SALUDO_{{ $('consultar seccion').item.json.message_count }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1696,
+        1968
+      ],
+      "id": "1d538886-dc67-4af7-97e6-38db3a4c05ac",
+      "name": "BUSCAR RESPUESTAS"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6894fee8-9eab-4d93-8e59-b9f683f944b5",
+              "leftValue": "={{ $json.intent }}",
+              "rightValue": "desconocido",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "28325490-9273-4166-9e9a-c274a67c3ad5",
+              "leftValue": "={{ $json.intent }}",
+              "rightValue": "saludo",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1744,
+        1712
+      ],
+      "id": "cec8ba61-df8b-4c29-a9c3-5900654f14d3",
+      "name": "reconocio ai?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5e2362fb-b9c7-4f63-b753-91f272ebc962",
+              "leftValue": "={{ $('consultar seccion').item.json.intent }}",
+              "rightValue": "prestamo",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2192,
+        1088
+      ],
+      "id": "b84c5489-d417-4bca-b6bd-b1e1814c0e87",
+      "name": "hay intencion"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/cedula/extract",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"texto\": {{ JSON.stringify($('Extract Initial Vars').item.json.userMessage) }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3248,
+        1456
+      ],
+      "id": "9330f48b-a583-4856-8e35-12857e8cb6bc",
+      "name": "consultar cedula?"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/session/{{ $json.sender }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3440,
+        1440
+      ],
+      "id": "cd6dd7aa-fe6c-4525-b49b-0c04ce410fc2",
+      "name": "consultar seccion"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "69dacd31-d413-4259-a168-4bcf9c41ac28",
+              "leftValue": "={{ $('consultar asegurado').item.json.estado }}",
+              "rightValue": "AC",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3760,
+        2160
+      ],
+      "id": "cdd9d39b-ac69-4c6b-b87c-15b6c6f8227f",
+      "name": "es formal "
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/cedula/scrape/{{ $json.cedula }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3792,
+        1952
+      ],
+      "id": "814f2ec5-719e-4538-bd65-cbc1c965001b",
+      "name": "consultar asegurado"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"{{ $json.value }}\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1472,
+        1728
+      ],
+      "id": "55b9c957-2b5a-4061-a1eb-4b0d3ce2d35a",
+      "name": "Pv3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Veo  que no tenes IPS decime vos sos funcionario publico del gobierno ?\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3328,
+        2144
+      ],
+      "id": "58fa854a-f64d-48be-abab-d7197e915228",
+      "name": "respuesta privado"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json['grupo-analistas'] }}\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Informal {{ $('consultar asegurado').item.json.cedula }} {{ $('consultar asegurado').item.json.nombres }}\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3152,
+        2144
+      ],
+      "id": "a04976ba-485f-48b0-8862-ef6d6ccdbc16",
+      "name": "enviar a analisis"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"*{{ $('consultar asegurado').item.json.cedula }} {{ $('consultar asegurado').item.json.nombres }}* es correcto ?\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3328,
+        1872
+      ],
+      "id": "f5b5531e-8702-46ff-a5b8-fedbd4c77c42",
+      "name": "responder al privado"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json['grupo-analistas'] }}\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"IPS {{ $('consultar asegurado').item.json.cedula }} {{ $('consultar asegurado').item.json.nombres }}\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3104,
+        1904
+      ],
+      "id": "153ffa79-63d4-4c10-9f4d-cd85325a2677",
+      "name": "enviar a analisis1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://194.163.143.217:3050/api/loan/prestamos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  ({\n    nombre:$('consultar asegurado').item.json.nombres ,\n    estado_ips:$('consultar asegurado').item.json.estado ,\n    cedula: $('consultar asegurado').item.json.cedula,\n    telefono: $('Extract Initial Vars').item.json.sender,\n    estado_solicitud: 'PREGUNTAR_DEUDA'\n  })\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3536,
+        1888
+      ],
+      "id": "4a846f91-d001-4828-a0e0-4f85b8e53d60",
+      "name": "guardar prestamo1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://194.163.143.217:3050/api/loan/prestamos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  ({\n    nombre:$('consultar asegurado').item.json.nombres ,\n    estado_ips:$('consultar asegurado').item.json.estado ,\n    cedula: $('consultar asegurado').item.json.cedula,\n    telefono: $('Extract Initial Vars').item.json.sender,\n    estado_solicitud: 'RECHAZADO_IPS'\n  })\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3536,
+        2144
+      ],
+      "id": "9aa5f2e5-fc5e-4c51-8d6a-60178c659197",
+      "name": "guardar prestamo"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/session/updateState",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"updateData\": \"prestamo\",\n  \"sessionId\": \"{{ $('consultar seccion').item.json.id }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2960,
+        2016
+      ],
+      "id": "1d9da087-f0b7-40e1-b50a-5d7a5c931f41",
+      "name": "activar bot"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Pasame tu numero de cedula te veo\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        96
+      ],
+      "id": "804ec7d7-8903-4ec4-a67c-de8e2d4178c5",
+      "name": "Pv"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/session/recognize",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  ({\n    userMessage: $('Extract Initial Vars').item.json.userMessage,\n    sessionId: $('consultar seccion').item.json.id\n  })\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1952,
+        1712
+      ],
+      "id": "1d722056-0cce-48ac-92f7-3dc2161d4514",
+      "name": "clasificador AI"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/loan/prestamos/telefono/{{ $('Extract Initial Vars').item.json.sender }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1360,
+        1184
+      ],
+      "id": "d7587981-32db-46f2-bd72-0d78b41c658b",
+      "name": "existe en bbdd prestamo"
+    },
+    {
+      "parameters": {
+        "content": "## zona de consulta de cedula",
+        "height": 496,
+        "width": 1072
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3808,
+        1776
+      ],
+      "typeVersion": 1,
+      "id": "2b6f7801-3721-4fb8-90dc-6934353cba8f",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Main",
+        "height": 560,
+        "width": 928,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3776,
+        1104
+      ],
+      "typeVersion": 1,
+      "id": "c4c68603-c4d1-49da-afe7-59e514fd8882",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Zona de prestamo",
+        "height": 496,
+        "width": 1088,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2336,
+        1008
+      ],
+      "typeVersion": 1,
+      "id": "f41691f9-9045-4d4f-8f4a-258c473f1961",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Logica",
+        "height": 608,
+        "width": 1024,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2352,
+        1664
+      ],
+      "typeVersion": 1,
+      "id": "dfc3c7bc-2f12-445a-958f-928eba36ebba",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Logica maquina de prestamo\n\n",
+        "height": 784,
+        "width": 1120,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1136,
+        1248
+      ],
+      "typeVersion": 1,
+      "id": "e1437d79-f3c4-49d6-a119-3d3dd8190277",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "54aea88d-3797-4377-af39-5176fed89c6c",
+              "name": "telefono",
+              "value": "={{ $('Extract Initial Vars').item.json.sender }}",
+              "type": "string"
+            },
+            {
+              "id": "e2f7610e-0dc0-4ef9-8db0-b2996911d4f9",
+              "name": "message",
+              "value": "={{ $('Extract Initial Vars').item.json.userMessage }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1056,
+        1360
+      ],
+      "id": "4e9f013d-e6cf-4146-87b8-ee3eb076e036",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $json.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1040,
+        1600
+      ],
+      "id": "c125e1d5-a132-4bba-b765-07ac33f4a753",
+      "name": "leer bbdd"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/extraer",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "=telefono",
+              "value": "={{ $('Edit Fields').item.json.telefono }}"
+            },
+            {
+              "name": "=message",
+              "value": "={{ $('Edit Fields').item.json.message }}"
+            },
+            {
+              "name": "bbdd",
+              "value": "={{ $json}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1056,
+        1824
+      ],
+      "id": "dd58f43b-3c2d-47a1-b761-d224c2d8cabc",
+      "name": "extraer"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=http://194.163.143.217:3001/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -976,
+        1808
+      ],
+      "id": "1d51bec3-a708-4c57-ae21-0234ec57ba44",
+      "name": "guardar data",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b31eb268-2ecb-4f09-8510-bc692d6708ce",
+              "leftValue": "={{ $json.empresa }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        1200
+      ],
+      "id": "fc657570-0e2f-4124-810c-3eb9957df265",
+      "name": "existe empresa"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "18523da5-5b34-41dc-ae71-3e8c7956b5a0",
+              "leftValue": "={{ $('refrescar data').item.json.ciudad }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        272,
+        288
+      ],
+      "id": "191a2f96-c008-4301-bdf7-23ce17dfc30c",
+      "name": "existe ciudad"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fd2ea7a8-d8f2-4bd6-b3f9-f0a6ff6f4e9b",
+              "leftValue": "={{ $json.barrio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        512
+      ],
+      "id": "936f8f92-2cd7-451d-8bb2-59b94e308ac5",
+      "name": "existe barrio"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "23badb1f-f2fc-42f4-a2af-d57ca65dc21a",
+              "leftValue": "={{ $json.referencia_1 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        1872
+      ],
+      "id": "3520b761-dd1f-4ca5-ae42-e464c44be69b",
+      "name": "existe Ref1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "23c298fa-3cf2-4422-bfc8-2689fc45935a",
+              "leftValue": "={{ $json.referencia_2 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        2128
+      ],
+      "id": "1a201b62-168f-423e-8148-770e91a8935a",
+      "name": "existe Ref2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6f4c81c5-e254-41dd-94ee-01252d5b71d5",
+              "leftValue": "={{ $json.referencia_3 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        2496
+      ],
+      "id": "d9393368-c897-454a-bd90-18de07de6ba8",
+      "name": "Existe Ref3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a7e75c73-aba2-4d00-b9f7-f35da2381697",
+              "leftValue": "={{ $('refrescar data').item.json.bloqueado }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -112,
+        1280
+      ],
+      "id": "63b6dc18-2d14-480a-a8b3-745b00b6f9c5",
+      "name": "Bloqueado ?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5b1774e6-1d23-4dbc-afdb-479bd7ad4b2e",
+              "leftValue": "={{ $json.cedula }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        96
+      ],
+      "id": "c1d284a8-da4b-4a65-a71c-9e4506bee546",
+      "name": "Cedula ?"
+    },
+    {
+      "parameters": {
+        "content": "## Estados\n",
+        "height": 720,
+        "width": 1888,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "dc6f89c4-f67c-43aa-902a-ced120dba144",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"bloqueado\": true }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        272,
+        2912
+      ],
+      "id": "c76e816b-77cf-49fd-b85a-f8f295e37cfe",
+      "name": "bloquear"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af07871d-b0a5-462b-b237-f8546c0f613a",
+              "leftValue": "={{ $json.contador_cedula }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        112
+      ],
+      "id": "401c03af-45ae-467b-8162-78be367207d1",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \n  \"contador_cedula\": {{ ($('refrescar data').item.json.contador_cedula || 0) + 1 }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1008,
+        128
+      ],
+      "id": "da1067b4-7e23-4d20-a2b4-787ce52b988c",
+      "name": "incrementar "
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af07871d-b0a5-462b-b237-f8546c0f613a",
+              "leftValue": "={{ $json.contador_empresa }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        1184
+      ],
+      "id": "859ada73-e844-476a-a4e6-f35f5c35bda4",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \n  \"contador_empresa\": {{ ($('refrescar data').item.json.contador_empresa || 0) + 1 }},\n\"espera_empresa\":true\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1664,
+        960
+      ],
+      "id": "4858868a-8ff0-4d7c-963f-19fa58158fbb",
+      "name": "incrementar 1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af07871d-b0a5-462b-b237-f8546c0f613a",
+              "leftValue": "={{ $json.contador_ciudad }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        304
+      ],
+      "id": "898a7369-bbb6-465c-877a-b326ce5ef65d",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \n  \"contador_ciudad\": {{ ($('refrescar data').item.json.contador_ciudad || 0) + 1 }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1024,
+        304
+      ],
+      "id": "6cba6415-41f8-4e81-92e1-3510c80af03f",
+      "name": "incrementar 2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af07871d-b0a5-462b-b237-f8546c0f613a",
+              "leftValue": "={{ $json.contador_barrio }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        512
+      ],
+      "id": "3150b6ae-df8c-4f79-b4e4-5539cad0a54a",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \n  \"contador_barrio\": {{ ($('refrescar data').item.json.contador_barrio || 0) + 1 }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1152,
+        496
+      ],
+      "id": "3b6ea438-7d4a-424c-9d49-b48395aec920",
+      "name": "incrementar 3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af07871d-b0a5-462b-b237-f8546c0f613a",
+              "leftValue": "={{ $json.contador_referencia_1 }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        1888
+      ],
+      "id": "8acaa6d4-3efd-4d0b-8c6f-88606b12ee01",
+      "name": "If5"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \n  \"contador_referencia_1\": {{ ($('refrescar data').item.json.contador_referencia_1 || 0) + 1 }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        1904
+      ],
+      "id": "52b008a0-4f1c-4c32-9c12-f5b5cf3bc902",
+      "name": "incrementar 4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af07871d-b0a5-462b-b237-f8546c0f613a",
+              "leftValue": "={{ $json.contador_referencia_2 }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        848,
+        2128
+      ],
+      "id": "b7e452a7-9119-4fff-9ccb-5ff06c96c7d9",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \n  \"contador_referencia_2\": {{ ($('refrescar data').item.json.contador_referencia_2|| 0) + 1 }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1536,
+        2112
+      ],
+      "id": "834e9050-da68-4f70-ad44-b8b3b4779bdf",
+      "name": "incrementar 5"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af07871d-b0a5-462b-b237-f8546c0f613a",
+              "leftValue": "={{ $json.contador_referencia_3 }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        2272
+      ],
+      "id": "50c814b4-c421-4e37-a17d-e95381db1b9b",
+      "name": "If7"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \n  \"contador_referencia_3\": {{ ($('refrescar data').item.json.contador_referencia_3 || 0) + 1 }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1408,
+        2336
+      ],
+      "id": "068c21cb-e217-41a1-90ae-83a8c3633952",
+      "name": "incrementar 6"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8d947e9d-5794-4a56-b092-ae18e3d33723",
+              "leftValue": "={{ $json.espera_empresa }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        736,
+        1184
+      ],
+      "id": "03859f27-e3d4-4dd6-9861-a31dfaa22d9f",
+      "name": "espera empresa"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://194.163.143.217:3001/empresa",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "=telefono",
+              "value": "="
+            },
+            {
+              "name": "=message",
+              "value": "={{ $('Edit Fields').item.json.message }}  {{ $json.ciudad }} paraguay"
+            },
+            {
+              "name": "bbdd",
+              "value": "={{ $json}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        976
+      ],
+      "id": "1e365256-8c4e-4cad-b5b5-1e0ebba000f2",
+      "name": "empresa",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "empresa",
+              "value": "={{ $('Extract Initial Vars').item.json.userMessage }}"
+            },
+            {
+              "name": "telefono_empresa",
+              "value": "={{ $json.telefono }}"
+            },
+            {
+              "name": "calle_empresa",
+              "value": "={{ $json.direccion }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1536,
+        1392
+      ],
+      "id": "9a94f12c-133c-4d08-b3d5-d0ca0ca0cf76",
+      "name": "guardar data1",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Como se llama la empresa donde trabajas ?\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1376,
+        928
+      ],
+      "id": "bb4bbde3-a510-49fd-892c-0a80940b8b67",
+      "name": "preguntar empresa"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"En que ciudad y barrio vivis\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        816,
+        304
+      ],
+      "id": "ab29ff41-4291-4f35-b8d5-1f019778c8f6",
+      "name": "Preguntar ciudad"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"En que barrio Vivis ?\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        496
+      ],
+      "id": "cb1c8ba3-7ee6-4736-849c-a121939ac2ce",
+      "name": "preguntar barrio"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Pasame 3 referencias personales numero de telefono con nombre y apellido\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        1904
+      ],
+      "id": "f1163989-549c-437e-956f-d0827f11f8ff",
+      "name": "preguntar ref 1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Me falta 2 referencias personales mas para completar tu solcitud\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        2160
+      ],
+      "id": "a9e1bbc0-1b9d-4caf-a1f1-750330d35375",
+      "name": "preguntar ref2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Me falta una ultima referencia personal \",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1072,
+        2256
+      ],
+      "id": "ee8ebaf3-e5b7-45ea-9247-e7022ec78434",
+      "name": "Preguntar ref3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "066267f4-8c2a-489e-8a97-4204bd0fd07b",
+              "leftValue": "={{ $('extraer').item.json.ciudad }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "3e15557b-28d5-42a4-9054-8d5023e0b632",
+              "leftValue": "={{ $('extraer').item.json.barrio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -816,
+        1344
+      ],
+      "id": "5ee9f7d6-830c-4ba3-98fa-5dc73911d446",
+      "name": "extrajo ciudad ?"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=http://194.163.143.217:3001/telefono/{{ $('Edit Fields').item.json.telefono }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "barrio_empresa",
+              "value": "={{ $('extraer').item.json.ciudad }}"
+            },
+            {
+              "name": "ciudad_empresa",
+              "value": "={{ $('extraer').item.json.barrio }}"
+            },
+            {
+              "name": "calle",
+              "value": "={{ $('extraer').item.json.direccion_inventada }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -544,
+        1280
+      ],
+      "id": "ec354ebc-b321-4ad5-92ba-dbcc36ad1b2d",
+      "name": "guardar ciuda empresa",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/sm/telefono/{{ $('Extract Initial Vars').item.json.sender }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -384,
+        1648
+      ],
+      "id": "57084caa-dfa4-4861-8a76-bc0df83847f7",
+      "name": "refrescar data"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtiene los datos del primer item que llega al nodo\nconst item = $('refrescar data').item.json;\n\n// Crea la cadena de texto usando una plantilla literal (backticks ``)\n// Esto respeta los saltos de línea y el formato que pediste.\nconst textoFormateado = `cedula:     ${item.cedula}\nnombre :    ${item.nombre}\nnacimiento :    ${item.nacimiento}\nciudad :    ${item.ciudad}\nbarrio :    ${item.barrio}\ncalle :     ${item.calle}\ntelefono :  ${item.telefono}\nempresa :   ${item.empresa}\nciudad :    ${item.ciudad_empresa}\nbarrio :    ${item.barrio_empresa}\ncalles :    ${item.calle_empresa}\ntelelfono : ${item.telefono_empresa}\nreferencia 1 : ${item.referencia_1}\nreferencia 2 : ${item.referencia_2}\nreferencia 3 : ${item.referencia_3}`;\n\n// Devuelve un nuevo item con una sola propiedad 'texto'\n// que contiene toda la cadena formateada.\nreturn [\n  {\n    json: {\n      texto: textoFormateado\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        2944
+      ],
+      "id": "792d1113-90c2-4d06-96b3-57360476b5b2",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json.sender }}@s.whatsapp.net\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n  \"message\": \"Pasame tu foto de cedula ambos lados\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        2912
+      ],
+      "id": "5da38d47-0e04-4407-9b5e-d1f6a982ca06",
+      "name": "pedir cedula"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/whatsapp/send-message ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": \"{{ $('Extract Initial Vars').item.json['grupo-unidos'] }}\",\n  \"instanceId\": \"{{ $('Extract Initial Vars').item.json.instanceId }}\",\n\"message\": \"{{ $json.texto.replace(/\\n/g, \"\\\\n\") }}\",\n  \"apikey\": \"{{ $('Extract Initial Vars').item.json.apikey }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        2928
+      ],
+      "id": "c2c6584e-ac06-4e9d-84ee-536c3a1b2db1",
+      "name": "enviar a analisis2"
+    },
+    {
+      "parameters": {
+        "content": "## Empresa",
+        "height": 720,
+        "width": 1872
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        128,
+        912
+      ],
+      "typeVersion": 1,
+      "id": "5e4919c5-96a2-4864-9ca3-0f109b190f25",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "##Referencia\n",
+        "height": 896,
+        "width": 1904,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        176,
+        1776
+      ],
+      "typeVersion": 1,
+      "id": "b6fe7483-1f6d-497d-9d45-6a5baed97e3a",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## Solcitar",
+        "height": 448,
+        "width": 1872
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        144,
+        2832
+      ],
+      "typeVersion": 1,
+      "id": "20d0a2f8-e99b-49d7-a898-50879450f161",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5ddbbb8d-ba67-47f9-abab-b069d1a97f1a",
+              "leftValue": "={{ $json.intent }}",
+              "rightValue": "prestamo",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1792,
+        1344
+      ],
+      "id": "97518176-5954-4ed3-9258-f9b7039511ef",
+      "name": "es prestamo"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Initial Vars').item.json.nodeServer }}/api/session/updateState",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"updateData\": \"{{ $json.intent }}\",\n  \"sessionId\": \"{{ $('consultar seccion').item.json.id }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1712,
+        1520
+      ],
+      "id": "c74fa6b3-552a-4d10-bfb4-b2b3c29eea50",
+      "name": "guardar intencio"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5ddbbb8d-ba67-47f9-abab-b069d1a97f1a",
+              "leftValue": "={{ $('consultar seccion').item.json.intent }}",
+              "rightValue": "prestamo",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1792,
+        1104
+      ],
+      "id": "48aff9f5-3a76-4222-a9ea-1d759ec16a29",
+      "name": "es prestamo1"
+    }
+  ],
+  "pinData": {
+    "main": [
+      {
+        "json": {
+          "headers": {
+            "host": "produccion-n8n.g83bmy.easypanel.host",
+            "user-agent": "axios/1.12.2",
+            "content-length": "344",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "194.163.143.217",
+            "x-forwarded-host": "produccion-n8n.g83bmy.easypanel.host",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "25f918ffc606",
+            "x-real-ip": "194.163.143.217"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "instanceId": "861",
+            "sender": "595981133313",
+            "userMessage": "que falta",
+            "url_server": "https://produccion-evolution-api.g83bmy.easypanel.host",
+            "apikey": "A161AC8F1521-4FA6-96CF-F27B9E4A0395",
+            "messageType": "conversation",
+            "fromMe": false,
+            "nodeServer": "http://194.163.143.217:3002",
+            "fuente": "595982206861",
+            "clase": "s.whatsapp.net",
+            "status": "Bega Bots"
+          },
+          "webhookUrl": "https://produccion-n8n.g83bmy.easypanel.host/webhook/whatsapp-main-router-xyz",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Extract Initial Vars": {
+      "main": [
+        [
+          {
+            "node": "es individual",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "main": {
+      "main": [
+        [
+          {
+            "node": "Extract Initial Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "es individual": {
+      "main": [
+        [
+          {
+            "node": "guardar Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "es conversacion y  no propio": {
+      "main": [
+        [
+          {
+            "node": "consultar seccion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Menos de 3 mensajes?": {
+      "main": [
+        [
+          {
+            "node": "clasificador AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "no errutar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "hay cedula": {
+      "main": [
+        [
+          {
+            "node": "consultar asegurado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "hay intencion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "respuestas estan en bbdd config": {
+      "main": [
+        [
+          {
+            "node": "BUSCAR RESPUESTAS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "guardar Chat": {
+      "main": [
+        [
+          {
+            "node": "es conversacion y  no propio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUSCAR RESPUESTAS": {
+      "main": [
+        [
+          {
+            "node": "Pv3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "reconocio ai?": {
+      "main": [
+        [
+          {
+            "node": "guardar intencio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "respuestas estan en bbdd config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "hay intencion": {
+      "main": [
+        [
+          {
+            "node": "es prestamo1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "¿Menos de 3 mensajes?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consultar cedula?": {
+      "main": [
+        [
+          {
+            "node": "hay cedula",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consultar seccion": {
+      "main": [
+        [
+          {
+            "node": "consultar cedula?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "es formal ": {
+      "main": [
+        [
+          {
+            "node": "guardar prestamo1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "guardar prestamo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consultar asegurado": {
+      "main": [
+        [
+          {
+            "node": "es formal ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "respuesta privado": {
+      "main": [
+        [
+          {
+            "node": "enviar a analisis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enviar a analisis": {
+      "main": [
+        [
+          {
+            "node": "activar bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "responder al privado": {
+      "main": [
+        [
+          {
+            "node": "enviar a analisis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "guardar prestamo1": {
+      "main": [
+        [
+          {
+            "node": "responder al privado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enviar a analisis1": {
+      "main": [
+        [
+          {
+            "node": "activar bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "guardar prestamo": {
+      "main": [
+        [
+          {
+            "node": "respuesta privado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "clasificador AI": {
+      "main": [
+        [
+          {
+            "node": "reconocio ai?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "existe en bbdd prestamo": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "leer bbdd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "leer bbdd": {
+      "main": [
+        [
+          {
+            "node": "extraer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extraer": {
+      "main": [
+        [
+          {
+            "node": "guardar data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "guardar data": {
+      "main": [
+        [
+          {
+            "node": "extrajo ciudad ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "existe empresa": {
+      "main": [
+        [
+          {
+            "node": "existe Ref1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "existe ciudad": {
+      "main": [
+        [
+          {
+            "node": "existe barrio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "existe barrio": {
+      "main": [
+        [
+          {
+            "node": "existe empresa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "existe Ref1": {
+      "main": [
+        [
+          {
+            "node": "existe Ref2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "existe Ref2": {
+      "main": [
+        [
+          {
+            "node": "Existe Ref3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bloqueado ?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Cedula ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cedula ?": {
+      "main": [
+        [
+          {
+            "node": "existe ciudad",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Existe Ref3": {
+      "main": [
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Pv",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pv": {
+      "main": [
+        [
+          {
+            "node": "incrementar ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "espera empresa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Preguntar ciudad",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "preguntar barrio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If5": {
+      "main": [
+        [
+          {
+            "node": "preguntar ref 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "preguntar ref2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If7": {
+      "main": [
+        [
+          {
+            "node": "Preguntar ref3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bloquear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "espera empresa": {
+      "main": [
+        [
+          {
+            "node": "empresa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "preguntar empresa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "empresa": {
+      "main": [
+        [
+          {
+            "node": "guardar data1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "preguntar empresa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "guardar data1": {
+      "main": [
+        [
+          {
+            "node": "existe Ref1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "preguntar empresa": {
+      "main": [
+        [
+          {
+            "node": "incrementar 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preguntar ciudad": {
+      "main": [
+        [
+          {
+            "node": "incrementar 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "preguntar barrio": {
+      "main": [
+        [
+          {
+            "node": "incrementar 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "preguntar ref 1": {
+      "main": [
+        [
+          {
+            "node": "incrementar 4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "preguntar ref2": {
+      "main": [
+        [
+          {
+            "node": "incrementar 5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preguntar ref3": {
+      "main": [
+        [
+          {
+            "node": "incrementar 6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extrajo ciudad ?": {
+      "main": [
+        [
+          {
+            "node": "guardar ciuda empresa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "refrescar data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "guardar ciuda empresa": {
+      "main": [
+        [
+          {
+            "node": "refrescar data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "refrescar data": {
+      "main": [
+        [
+          {
+            "node": "Bloqueado ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bloquear": {
+      "main": [
+        [
+          {
+            "node": "pedir cedula",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pedir cedula": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "enviar a analisis2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "es prestamo": {
+      "main": [
+        [
+          {
+            "node": "existe en bbdd prestamo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "guardar intencio": {
+      "main": [
+        [
+          {
+            "node": "es prestamo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "es prestamo1": {
+      "main": [
+        [
+          {
+            "node": "existe en bbdd prestamo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8a0772ac-513f-47e9-8199-2b6c1b939454",
+  "meta": {
+    "instanceId": "93ca41daa7a50d1636c3b039a75f4b12601d49206e47cea2bd7f328af10eb30e"
+  },
+  "id": "rATK7FXskOUuJVeV",
+  "tags": []
+}
