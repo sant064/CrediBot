@@ -31,15 +31,15 @@ app.use((req, res, next) => {
 // --- 2. Usa las rutas con un prefijo ---
 // Le decimos a Express:
 // "Para cualquier URL que empiece con /api/instance, usa las reglas de instanceRoutes"
-app.use('/api/instance', instanceRoutes);
-app.use('/api/log', logRoutes);
-app.use('/api/ai', aiRoutes);
-app.use('/api/session', sessionRoutes);
-app.use('/api/config', configRoutes);
-app.use('/api/cedula', cedulaRoutes);
-app.use('/api/whatsapp', whatsappRoutes)
-app.use('/api/loan', loanRoutes);
-//app.use('/api/invoices', invoiceRoutes);
+//app.use('/api/instance', instanceRoutes); // -----------quiero eliminar temporalmente para que no cree instancias nuevas
+app.use('/api/log', logRoutes);//para manejar logs de conversaciones
+app.use('/api/ai', aiRoutes); //para manejar peticiones de IA
+app.use('/api/session', sessionRoutes); //para manejar sesiones de usuarios
+app.use('/api/config', configRoutes); //para optener configuraciones dinámicas por ahora solo sms de bienvenida
+app.use('/api/cedula', cedulaRoutes); //para validar y extraer datos de cédulas
+app.use('/api/whatsapp', whatsappRoutes) // para controlar envio de mensajes whatsapp
+//app.use('/api/loan', loanRoutes);// -----------quiero eliminar temporalmente para que no cree instancias nuevas
+//app.use('/api/invoices', invoiceRoutes);// -----------quiero eliminar temporalmente para que no cree instancias nuevas
 
 
 // --- 3. Inicia el Servidor ---
