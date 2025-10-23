@@ -11,6 +11,7 @@ router.post('/', mkpController.mkpcontroller);
 // --- NEW GET ROUTE ---
 // Responds with "OK" for health checks or simple verification
 router.get('/', (req, res) => {
+    console.log('[MKPRoute] ⚡ GET request received for MKP route');
     res.status(200).send('mkp OK');
 });
 // --------------------
