@@ -5,8 +5,8 @@ const axios = require('axios');
 // --- Configuration ---
 const ACCUMULATION_TIMEOUT_MS = parseInt(process.env.ACCUMULATION_TIMEOUT_SECONDS || '20', 10) * 1000;
 const TARGET_URL = process.env.TARGET_N8N_URL || 'TU_WEBHOOK_URL_DE_N8N_AQUI'; // Replace or use .env
-const PORT = process.env.PORT || 3001; // Port where THIS Node.js app runs
-const HOST_IP = process.env.HOST_IP || 'localhost'; // IP/Hostname of THIS Node.js app
+const nodeServer = process.env.nodeServer 
+
 
 // --- Temporary In-Memory Storage ---
 // Map<sender, { messages: string[], timerId: NodeJS.Timeout | null, firstWebhookBody: object }>
@@ -35,7 +35,7 @@ async function processAndSendAccumulatedMessages(sender) {
         apikey: firstWebhook?.apikey,
         messageType: firstWebhook?.data?.messageType || firstWebhook?.data?.message?.messageType, // Try both common places
         fromMe: firstWebhook?.data?.key?.fromMe === true,
-        nodeServer: `http://${HOST_IP}:${PORT}`, // Where this accumulator runs
+        nodeServer: nodeServer, // Where this accumulator runs
         fuente: firstWebhook?.sender?.split('@')[0],
         clase: sender?.split('@')[1],
         status: firstWebhook?.data?.pushName,
