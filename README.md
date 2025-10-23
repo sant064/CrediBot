@@ -1,4 +1,4 @@
-# avi-backend: Motor Inteligente de Procesamiento y Automatización
+# CrediBot: Motor Inteligente de Procesamiento y Automatización
 
 Backend centralizado para gestionar flujos conversacionales, procesamiento de datos y automatización de tareas, utilizando Node.js, Express, PocketBase y Google Gemini.
 
