@@ -2,10 +2,11 @@
 
 const express = require('express');
 const router = express.Router();
-const accumulatorController = require('../controllers/evo.acumulador.controller'); // Adjust path if needed
+const mkpController = require('../controllers/mkp.controller'); // Adjust path if needed
 
 // POST route for receiving webhooks (existing)
-router.post('/', accumulatorController.handleWebhook);
+router.post('/', mkpController.mkpcontroller);
+   
 
 // --- NEW GET ROUTE ---
 // Responds with "OK" for health checks or simple verification
