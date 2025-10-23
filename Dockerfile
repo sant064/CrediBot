@@ -8,9 +8,7 @@ COPY . .
 # --- ETAPA 2: "EL EJECUTOR" (Imagen Final) ---
 FROM node:20-slim
 
-# Instala SOLAMENTE las librerías de Linux que Chrome necesita
-# ¡ESTA ES LA LISTA CORREGIDA PARA DEBIAN 12 (node:20-slim)!
-# (Se han eliminado los sufijos "t64")
+# Instala las librerías de Linux (versión Debian, sin "t64")
 RUN apt-get update && apt-get install -y \
     libatk-bridge2.0-0 \
     libcups2 \
@@ -33,6 +31,12 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /workspace
 COPY --from=builder /workspace .
 
+# --- ¡AQUÍ ESTÁ LA LÍNEA NUEVA! ---
+# Le dice a Puppeteer dónde está el Chrome que copiamos
+# La versión la saqué de tu propio log de error
+ENV PUPPETEER_EXECUTABLE_PATH="/workspace/node_modules/puppeteer/.local-chromium/linux-141.0.7390.122/chrome-linux64/chrome"
+
+# Le dice a Puppeteer que no intente descargar nada
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 
 EXPOSE 3001
