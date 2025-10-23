@@ -8,7 +8,7 @@ const sendMessage = async (req, res) => {
 
   try {
     const { apikey, sender, instanceId, message } = req.body;
-
+console.log(req.body)
     if (!sender || !instanceId || !message) {
       return res.status(400).json({ error: 'Los campos "sender", "instanceId" y "message" son requeridos.' });
     }
