@@ -31,12 +31,7 @@ const sendMessage = async (req, res) => {
 
     // --- LÓGICA DE "ESCRIBIENDO" ---
 
-    // 3. Establecer estado "composing" (escribiendo)
-    const presenceUrl = `${apiUrlBase}/chat/updatePresence/${instanceId}`;
-    const presencePayload = {
-      number: number,
-      presence: 'composing'
-    };
+   
 
     console.log(`[WhatsAppController] 📤 Enviando "escribiendo" a: ${presenceUrl}`);
     await axios.post(presenceUrl, presencePayload, { headers: apiHeaders });
