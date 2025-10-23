@@ -19,27 +19,30 @@ const mkpcontroller = async (req, res) => {
     console.log('[MKPController] Message:', message);
 
     // 2. Obtener la URL de n8n y las NUEVAS variables del entorno
-    //    (Asegúrate de que estas variables estén en tu Easypanel)
     const targetUrl = process.env.mkp_N8N_URL;
-   
-    const apikey = process.env.mkp_api_key;    
-     const EVOLUTION_API_URL = process.env.EVOLUTION_API_URL     // <-- NUEVA LÍNEA
-     const mkp_instanceID = process.env.mkp_instanceID
+    const apikey = process.env.mkp_api_key;
+    const EVOLUTION_API_URL = process.env.EVOLUTION_API_URL;
+    const mkp_instanceID = process.env.mkp_instanceID;
 
-     var urlRespuesta= EVOLUTION_API_URL+`/message/sendText/`+mkp_instanceID
+    // --- CORRECCIÓN AQUÍ ---
+    // Se ha actualizado la validación para que coincida con las variables que realmente usas.
+
     // 2b. Validar TODAS las variables de entorno requeridas
-    if (!targetUrl || !nodeServer || !apikey) {
-      console.error('[MKPController] 🔴 ¡Error! Variables de entorno faltantes. Asegúrate de definir mkp_N8N_URL, NODE_SERVER y API_KEY.');
+    if (!targetUrl || !apikey || !EVOLUTION_API_URL || !mkp_instanceID) {
+      console.error('[MKPController] 🔴 ¡Error! Variables de entorno faltantes. Asegúrate de definir mkp_N8N_URL, mkp_api_key, EVOLUTION_API_URL y mkp_instanceID.');
       return res.status(500).json({ error: 'Configuración del servidor incompleta.' });
     }
+    // --- FIN DE LA CORRECCIÓN ---
+
+    // 2c. Construir la URL de respuesta
+    const urlRespuesta = `${EVOLUTION_API_URL}/message/sendText/${mkp_instanceID}`;
 
     // 3. Preparar el payload para enviar a n8n (con los nuevos datos)
     const payload = {
       sender: sender,
       message: message,
-    // <-- NUEVA LÍNEA
-      apikey: apikey  ,        // <-- NUEVA LÍNEA
-     evolution_api_url: urlRespuesta // <-- NUEVA LÍNEA
+      apikey: apikey,
+      evolution_api_url: urlRespuesta // Esta es la URL completa que n8n recibirá
     };
 
     // 4. Enviar la petición POST a n8n
@@ -71,4 +74,5 @@ const mkpcontroller = async (req, res) => {
 
 module.exports = {
   mkpcontroller,
+  // ... (asegúrate de exportar también 'sendMessage' si sigue en este archivo)
 };
