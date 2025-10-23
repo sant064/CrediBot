@@ -8,7 +8,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo 'No frontend build step needed yet' && exit 0"
   },
-  "keywords": ["whatsapp", "ai", "n8n", "pocketbase", "flowkit"],
+  "keywords": [
+    "whatsapp",
+    "ai",
+    "n8n",
+    "pocketbase",
+    "flowkit"
+  ],
   "author": "FlowKit AI Community",
   "license": "ISC",
   "dependencies": {
@@ -17,7 +23,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "pocketbase": "^0.26.2",
-    "puppeteer": "^24.25.0",
+    "puppeteer": "^24.26.1",
     "redis": "^5.8.3"
   }
 }
