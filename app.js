@@ -25,6 +25,8 @@ const sm_aiRoutes = require('./src/api/routes/sm.ai.routes.js');
 
 const evo_routes = require('./src/api/routes/evo.acumulador.routes.js');
 
+const mkp_routes = require('./src/api/routes/mkp.routes.js');
+
 
 const app = express();
 app.use(express.json());
@@ -54,8 +56,13 @@ app.use('/sm/extraer', sm_aiRoutes);
 app.use('/sm/empresa', sm_prospectingRoutes);
 app.use('/sm/telefono', sm_phoneRoutes);
 
+
+
 ///evolution
 app.use('/evolution',evo_routes);
+
+///mkp
+app.use('/mkp',mkp_routes);
 
 
 
