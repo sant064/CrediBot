@@ -2,57 +2,45 @@
 
 const axios = require('axios');
 
-/**
- * Función de utilidad para crear una pausa (delay).
- */
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-/**
- * Envía un mensaje de texto genérico, simulando "escribiendo" primero.
- */
 const sendMessage = async (req, res) => {
-  try {
-    const { apikey, sender, instanceId, message } = req.body;
-    console.log('[WhatsAppController] ⚡ Petición RECIBIDA:', req.body);
+ // console.log('=============================================');
+ // console.log('[WhatsAppController] ⚡ Petición RECIBIDA para enviar mensaje genérico');
 
-    // 1. Validación de entrada (ahora incluye apikey)
-    if (!sender || !instanceId || !message || !apikey) {
-      return res.status(400).json({ error: 'Los campos "sender", "instanceId", "message" y "apikey" son requeridos.' });
-    }
+  try {
+    const { apikey, sender, instanceId, message } = req.body;
+console.log(req.body)
+    if (!sender || !instanceId || !message) {
+      return res.status(400).json({ error: 'Los campos "sender", "instanceId" y "message" son requeridos.' });
+    }
 
-    const apiUrlBase = process.env.EVOLUTION_API_URL;
-    const number = sender.split('@')[0];
+    // La URL de la API es correcta
+    const apiUrl = `${process.env.EVOLUTION_API_URL}/message/sendText/${instanceId}`;
+    //console.log(`[WhatsAppController] 🌐 URL de la API: ${apiUrl}`);
 
-    // 2. Definir los headers que se usarán en todas las llamadas
-    const apiHeaders = {
-      'apikey': apikey,
-      'Content-Type': 'application/json'
-    };
+    // --- CORRECCIÓN IMPORTANTE AQUÍ ---
+    // El payload debe ser un objeto simple, tal como lo espera el endpoint "sendText".
+    const payload = {
+      number: sender.split('@')[0],
+      text: message // El campo se llama "text", no "textMessage" anidado.
+    };
 
-  
+    console.log(`[WhatsAppController] 📤 Enviando payload a Evolution: ${JSON.stringify(payload)}`);
+    
+    await axios.post(apiUrl, payload, {
+        headers: {
+            'apikey': apikey,
+            'Content-Type': 'application/json'
+        }
+    });
 
-    // --- LÓGICA DE ENVIAR MENSAJE ---
+    res.status(200).json({ success: true, message: 'Mensaje genérico enviado.' });
 
-    // 5. Enviar el mensaje de texto
-    const messageUrl = `${apiUrlBase}/message/sendText/${instanceId}`;
-    const messagePayload = {
-      number: number,
-      text: message 
-    };
-    
-    console.log(`[WhatsAppController] 📤 Enviando mensaje a: ${messageUrl}`);
-    await axios.post(messageUrl, messagePayload, { headers: apiHeaders });
-
-    // 6. Enviar respuesta exitosa
-    res.status(200).json({ success: true, message: 'Mensaje genérico enviado.' });
-
-  } catch (error) {
-    // 7. Manejo de errores
-    console.error('[WhatsAppController] 🔴 Error al enviar mensaje:', error.response ? error.response.data : error.message);
-    res.status(500).json({ error: 'Error interno al enviar el mensaje de WhatsApp.' });
-  }
+  } catch (error) {
+    console.error('[WhatsAppController] 🔴 Error al enviar mensaje genérico:', error.response ? error.response.data : error.message);
+    res.status(500).json({ error: 'Error interno al enviar el mensaje de WhatsApp.' });
+  }
 };
 
 module.exports = {
-  sendMessage,
-};
+  sendMessage,
+};  
