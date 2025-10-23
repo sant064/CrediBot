@@ -21,9 +21,12 @@ const mkpcontroller = async (req, res) => {
     // 2. Obtener la URL de n8n y las NUEVAS variables del entorno
     //    (Asegúrate de que estas variables estén en tu Easypanel)
     const targetUrl = process.env.mkp_N8N_URL;
-    const nodeServer = process.env.NODE_SERVER; // <-- NUEVA LÍNEA
-    const apikey = process.env.API_KEY;         // <-- NUEVA LÍNEA
+   
+    const apikey = process.env.mkp_api_key;    
+     const EVOLUTION_API_URL = process.env.EVOLUTION_API_URL     // <-- NUEVA LÍNEA
+     const mkp_instanceID = process.env.mkp_instanceID
 
+     var urlRespuesta= EVOLUTION_API_URL+`/message/sendText/`+mkp_instanceID
     // 2b. Validar TODAS las variables de entorno requeridas
     if (!targetUrl || !nodeServer || !apikey) {
       console.error('[MKPController] 🔴 ¡Error! Variables de entorno faltantes. Asegúrate de definir mkp_N8N_URL, NODE_SERVER y API_KEY.');
@@ -34,8 +37,9 @@ const mkpcontroller = async (req, res) => {
     const payload = {
       sender: sender,
       message: message,
-      nodeserver: nodeServer, // <-- NUEVA LÍNEA
-      apikey: apikey          // <-- NUEVA LÍNEA
+    // <-- NUEVA LÍNEA
+      apikey: apikey  ,        // <-- NUEVA LÍNEA
+     evolution_api_url: urlRespuesta // <-- NUEVA LÍNEA
     };
 
     // 4. Enviar la petición POST a n8n
