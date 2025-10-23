@@ -15,7 +15,7 @@ console.log(req.body)
 
     // La URL de la API es correcta
     const apiUrl = `${process.env.EVOLUTION_API_URL}/message/sendText/${instanceId}`;
-    //console.log(`[WhatsAppController] 🌐 URL de la API: ${apiUrl}`);
+    console.log(`[WhatsAppController] 🌐 URL de la API: ${apiUrl}`);
 
     // --- CORRECCIÓN IMPORTANTE AQUÍ ---
     // El payload debe ser un objeto simple, tal como lo espera el endpoint "sendText".
