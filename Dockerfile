@@ -31,12 +31,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /workspace
 COPY --from=builder /workspace .
 
-# --- ¡AQUÍ ESTÁ LA LÍNEA NUEVA! ---
-# Le dice a Puppeteer dónde está el Chrome que copiamos
-# La versión la saqué de tu propio log de error
-ENV PUPPETEER_EXECUTABLE_PATH="/workspace/node_modules/puppeteer/.local-chromium/linux-141.0.7390.122/chrome-linux64/chrome"
-
-# Le dice a Puppeteer que no intente descargar nada
+# Le dice a Puppeteer que no intente descargar nada (¡ESTA LÍNEA SÍ QUEDA!)
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 
 EXPOSE 3001
