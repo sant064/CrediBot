@@ -29,15 +29,7 @@ const sendMessage = async (req, res) => {
       'Content-Type': 'application/json'
     };
 
-    // --- LÓGICA DE "ESCRIBIENDO" ---
-
-   
-
-    console.log(`[WhatsAppController] 📤 Enviando "escribiendo" a: ${presenceUrl}`);
-    await axios.post(presenceUrl, presencePayload, { headers: apiHeaders });
-
-    // 4. Esperar 3 segundos para simular que el bot está escribiendo
-    await delay(3000); 
+  
 
     // --- LÓGICA DE ENVIAR MENSAJE ---
 
