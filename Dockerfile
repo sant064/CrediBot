@@ -1,14 +1,7 @@
-# --- ETAPA 1: "EL CONSTRUCTOR" ---
-FROM node:20 AS builder
-WORKDIR /workspace
-COPY package*.json ./
-RUN npm install
-COPY . .
+# 1. Empezar con la imagen COMPLETA de Node (no la 'slim')
+FROM node:20
 
-# --- ETAPA 2: "EL EJECUTOR" (Imagen Final) ---
-FROM node:20-slim
-
-# Instala las librerías de Linux (versión Debian, sin "t64")
+# 2. Instalar las librerías de Linux (versión Debian) ANTES de todo
 RUN apt-get update && apt-get install -y \
     libatk-bridge2.0-0 \
     libcups2 \
@@ -28,11 +21,23 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+# 3. Preparar la carpeta de trabajo
 WORKDIR /workspace
-COPY --from=builder /workspace .
 
-# Le dice a Puppeteer que no intente descargar nada (¡ESTA LÍNEA SÍ QUEDA!)
-ENV PUPPETEER_SKIP_DOWNLOAD=true
+# 4. Copiar el package.json
+COPY package*.json ./
 
+# 5. Instalar dependencias
+# Ahora, 'npm install puppeteer' SÍ descargará Chrome
+# porque ya instalamos las librerías de Linux en el paso 2
+RUN npm install
+
+# 6. Copiar todo el resto de tu código
+COPY . .
+
+# 7. Exponer tu puerto
 EXPOSE 3001
+
+# 8. Correr la app
+# (Recuerda tener --no-sandbox en tu código de puppeteer.launch())
 CMD ["node", "app.js"]
